@@ -8,7 +8,8 @@ var userSchema = new Schema({
   password: {type: String, required: true},
   picture: {type: String, required: false},
   birthdate: {type: Date, required: false},
-  facebook_id: {type: String, required: false}
+  facebook_id: {type: String, required: false},
+  facebook_access_token: {type: String, required: false}
 })
 
 var User = mongoose.model('User', userSchema);

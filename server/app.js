@@ -54,13 +54,47 @@ passport.use(new FacebookStrategy({
     callbackURL: 'http://localhost:3000/auth/facebook/callback'
   },
   function(accessToken, refreshToken, profile, cb) {
-    // In this example, the user's Facebook profile is supplied as the user
-    // record.  In a production-quality application, the Facebook profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
+
     console.log('accesstoken: ', accessToken)
-    return cb(null, profile);
+    console.log('profile', profile)
+
+    User.findOne({facebook_id: profile.id}, (err, user) => {
+      if(err) res.send(err);
+
+      if (!user) {
+
+        /*
+        // to get email birthday, profile picture
+https://graph.facebook.com/10108296765292663?fields=email,birthday,picture&access_token=token
+        */
+
+        var newUser = User({
+          name: profile.displayName,
+          username: 'ijo',
+          email: 'ijo@haha.com',
+          password: passwordHash.generate('haha'),
+          facebook_id: profile.id,
+          facebook_access_token: accessToken
+        })
+
+        newUser.save( (err, user) => {
+          if(err) res.send(err);
+
+          // token is created when user is signin normally
+          // res.redirect('http://localhost:8080')
+          console.log("*** created new user ***")
+          console.log(user);
+          return cb(null, user);
+        })
+      }
+      else {
+        console.log("*** existing user ***")
+        console.log(user);
+        return cb(null, user);
+      }
+    }) // end of User.findOne
+
+    // return cb(null, profile);
   }));
 
 
@@ -98,7 +132,7 @@ app.use('/', index);
 app.use('/users', users);
 
 app.get('/auth/facebook',
-  passport.authenticate('facebook', { scope : 'email' }));
+  passport.authenticate('facebook', { scope : 'email,public_profile,user_birthday' }));
 
 
 app.get('/auth/facebook/callback',
