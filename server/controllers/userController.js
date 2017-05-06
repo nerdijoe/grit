@@ -29,7 +29,14 @@ exports.signin = (req, res, next) => {
 
   // create token
   var token = jwt.sign(
-    { username: user.username, email: user.email, picture: user.picture},
+    {
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      picture: user.picture,
+      facebook_id: user.facebook_id,
+      facebook_access_token: user.facebook_access_token
+    },
     process.env.TOKEN_SECRET,
     { expiresIn: '1h' }
   );
