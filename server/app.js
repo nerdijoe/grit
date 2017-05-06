@@ -14,7 +14,8 @@ var cors = require('cors')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var tasks = require('./routes/tasks');
+var todos = require('./routes/todos');
 
 
 passport.use(new Strategy(
@@ -130,6 +131,8 @@ app.use(passport.session());
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/tasks', tasks);
+app.use('/todos', todos);
 
 app.get('/auth/facebook',
   passport.authenticate('facebook', { scope : 'email,public_profile,user_birthday' }));
