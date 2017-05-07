@@ -27,7 +27,10 @@
 
           <div class="right menu">
             <div v-if="!is_login" class="item">
-              <a href="login.html" class="ui green basic button">Sign in</a>
+              <button class="ui orange basic button" id="btnSignUp">Sign up</button>
+            </div>
+            <div v-if="!is_login" class="item">
+              <button class="ui green basic button" id="btnLogin">Sign in</button>
             </div>
             <div v-if="!is_login" class="item">
               <a href="http://localhost:3000/auth/facebook" class="ui facebook button"><i class="facebook icon"></i>Sign in</a>
@@ -69,10 +72,40 @@
         </div> <!-- column -->
       </div> <!-- end of ui grid-->
 
+      <div class="footer">
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Platform</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Jobs</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+
+        <div class="badge-container vertical-container">
+          <ul class="flex-container-badge">
+            <li class="ui small image">
+              <a href="#"><img src="/images/app_store_badges/app-store-badge.svg"/></a>
+            </li>
+
+            <li class="ui small image">
+              <a href="#"><img src="/images/app_store_badges/google-play-badge.png"/></a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div> <!-- end of footer -->
+
 
     </div> <!-- end of ui container -->
 
     </div> <!-- end of app-->
+    <script type="text/javascript" src="dist/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/semantic.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/vue-login.js"></script>
+
   </body>
-  <script src="./js/vue-login.js"></script>
 </html>

@@ -31,7 +31,10 @@ var app = new Vue({
 
       })
       .catch(function (error) {
+        console.log("**** Error signin")
         console.log(error);
+
+        $('#modalSignInError').modal('show');
       });
 
 
@@ -47,9 +50,11 @@ var app = new Vue({
         password: app.user_form.password
       })
       .then(function (response) {
-        if (response.data.hasOwnProperty('err')) {
+        if (response.data.hasOwnProperty('errors')) {
             console.log(response.data);
-            console.log(err);
+            // console.log(err);
+            console.log("**** sign up error")
+            $('#modalSignUpError').modal('show');
         } else {
             $('#modalSignUpSuccessful').modal('show');
             console.log(response);
@@ -81,6 +86,7 @@ var app = new Vue({
         // window.location.href = "todo.html"
 
         // add to tasks
+        app.num_incomplete++;
         app.user.todo.tasks.push(response.data);
 
       })
@@ -140,6 +146,19 @@ var app = new Vue({
         var elementPos = app.user.todo.tasks.map(function(x) {return x._id; }).indexOf(task_id);
         console.log('elementPos', elementPos);
         app.user.todo.tasks.splice(elementPos, 1);
+
+        // update completed and incomplete
+        if(app.user.todo.tasks.length > 0) {
+          app.num_complete = 0;
+          app.num_incomplete = 0;
+          app.user.todo.tasks.map( t => {
+            if(t.is_completed)
+              app.num_complete++;
+            else
+              app.num_incomplete++;
+          })
+        }
+
       })
       .catch(function (error) {
         console.log(error);
