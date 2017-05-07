@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel='stylesheet' href='/style/main.css' />
 
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
@@ -13,79 +14,175 @@
   </head>
   <body>
   <div id="app">
-    <div class="ui secondary  menu">
-      <a class="item">
-        Home
-      </a>
-      <a class="item">
-        Messages
-      </a>
-      <a class="item">
-        Friends
-      </a>
-      <div class="right menu">
-        <div class="item">
-          <div class="ui icon input">
-            <input type="text" placeholder="Search...">
-            <i class="search link icon"></i>
-          </div>
-        </div>
-        <a class="ui item">
-          Logout
-        </a>
-      </div>
-    </div>
-
-
 
     <div class="ui container">
-    <button class="ui red button" v-on:click="signOut">Sign out</button>
 
-    <h2>My Todo List</h2>
+      <div class="ui secondary menu">
+        <a>
+          <div class="ui small image">
+            <a href="index.html"><img src="/images/logo_v2.png"></a>
+          </div>
+        </a>
+        <a href="todo.html" v-if="is_login" class="item">
+          My Todo List
+        </a>
 
-    <form class="ui massive form" v-on:submit="addTask">
-      <div class="two fields">
-        <div class="field">
-          <input placeholder="Enter Task" type="text" name="name" v-model="task_form.name">
+        <div class="right menu">
+          <div v-if="!is_login" class="item">
+            <a href="login.html" class="ui green basic button">Sign in</a>
+          </div>
+          <div v-if="!is_login" class="item">
+            <a href="http://localhost:3000/auth/facebook" class="ui facebook button"><i class="facebook icon"></i>Sign in</a>
+          </div>
+
+          <div v-if="is_login" class="item">
+            <button class="ui red button" v-on:click="signOut">Sign out</button>
+          </div>
         </div>
-        <div class="field">
-          <button class="massive ui submit button" type="submit">Submit</button>
-        </div>
-      </div>
-      <div class="ui error message"></div>
-    </form>
+      </div> <!-- end of menu-->
+
+
+    <h2>{{user.name}} Todo List</h2>
+
+    <a class="ui orange image label" data-tooltip="Total Tasks" >
+      <i class="asterisk icon"></i>
+      <div class="detail">{{user.todo.tasks.length}}</div>
+    </a>
+
+    <a class="ui yellow image label" data-tooltip="Total Incomplete Tasks">
+      <i class="square outline icon"></i>
+
+      <div class="detail">{{num_incomplete}}</div>
+    </a>
+
+    <a class="ui green image label" data-tooltip="Total Completed Tasks">
+      <i class="checkmark box icon"></i>
+
+      <div class="detail">{{num_complete}}</div>
+    </a>
+
+
+    <div class="ui grid"><div class="row"></div></div>
+    <div class="ui grid"><div class="row"></div></div>
+
+    <!-- <div class="ui one column stackable center aligned page grid">
+       <div class="column twelve wide"> -->
+         <form class="ui massive form" v-on:submit="addTask">
+           <div class="two fields">
+             <div class="field">
+               <input placeholder="Enter Task" type="text" name="name" v-model="task_form.name">
+             </div>
+             <div class="field">
+               <button class="massive ui submit button" type="submit">Add</button>
+             </div>
+           </div>
+           <div class="ui error message"></div>
+         </form>
+       <!-- </div>
+    </div> -->
+
+
 
     <div class="container" v-if="user">
 
-      <div class="ui cards">
-        <div class="card" v-for="task in user.todo.tasks">
-          <div class="content">
-            <div class="header">{{task.name}}</div>
-            <div class="description">
-              {{task.updated_at}}
+      <!-- Incomplete Tasks ********************************************************************** -->
+      <h3 class="ui yellow header"><i class="huge checkmark box icon"></i>Incomplete Tasks</h3>
+
+      <div v-if="user.todo.tasks.length > 0">
+        <div v-if="num_incomplete == 0">
+          <!-- <div class="ui grid"><div class="row"></div></div> -->
+          <div class="ui grid">
+            <div class="eight wide column">
+              <div class="ui green message">Congrats! You have finished all of your tasks!</div>
+              <div class="ui grid"><div class="row"></div><div class="row"></div></div>
             </div>
-          </div>
-
-          <div class="extra content">
-
-            <span class="right floated" v-if="!task.is_completed">
-              <a v-on:click="markComplete(task._id)"><i class="big checkmark icon"></i></a>
-            </span>
-            <span class="right floated" v-if="task.is_completed">
-              <a v-on:click="markComplete(task._id)"><i class="big green checkmark icon"></i></a>
-            </span>
-
-            <span>
-              <a v-on:click="deleteTask(task._id)"><i class="big remove circle outline icon"></i></a>
-            </span>
-
-
           </div>
         </div>
       </div>
+
+
+      <div class="ui cards">
+
+          <div class="card" v-for="task in user.todo.tasks" v-if="!task.is_completed">
+
+            <div class="content">
+              <div class="header">{{task.name}}</div>
+              <div class="description">
+                {{task.updated_at}}
+              </div>
+            </div>
+
+            <div class="extra content">
+              <span class="right floated" v-if="!task.is_completed">
+                <a v-on:click="markComplete(task._id)"><i class="big checkmark icon"></i></a>
+              </span>
+              <span class="right floated" v-if="task.is_completed">
+                <a v-on:click="markComplete(task._id)"><i class="big green checkmark icon"></i></a>
+              </span>
+
+              <span>
+                <a v-on:click="deleteTask(task._id)"><i class="big remove circle outline icon"></i></a>
+              </span>
+            </div> <!-- extra content -->
+
+          </div> <!-- card v-for -->
+
+      </div> <!-- ui cards-->
+
+
+      <div class="ui grid"><div class="row"></div></div>
+
+      <!-- Completed Tasks ********************************************************************** -->
+
+
+      <div v-if="user.todo.tasks.length > 0">
+        <div v-if="num_complete > 0">
+
+          <h3 class="ui green header"><i class="huge checkmark box icon"></i>Completed Tasks</h3>
+
+          <div class="ui cards">
+
+          <div class="card" v-for="task in user.todo.tasks" v-if="task.is_completed">
+
+                <div class="content">
+                  <div class="header">{{task.name}}</div>
+                  <div class="description">
+                    {{task.updated_at}}
+                  </div>
+                </div>
+
+                <div class="extra content">
+                  <span class="right floated" v-if="!task.is_completed">
+                    <a v-on:click="markComplete(task._id)"><i class="big checkmark icon"></i></a>
+                  </span>
+                  <span class="right floated" v-if="task.is_completed">
+                    <a v-on:click="markComplete(task._id)"><i class="big green checkmark icon"></i></a>
+                  </span>
+
+                  <span>
+                    <a v-on:click="deleteTask(task._id)"><i class="big remove circle outline icon"></i></a>
+                  </span>
+                </div> <!-- extra content -->
+
+          </div> <!-- card v-for-->
+
+          </div> <!-- ui cards-->
+
+
+        </div> <!-- v-if="num_complete > 0" -->
+      </div> <!-- v-if="user.todo.tasks.length -->
+
+
+
+
+
+      <div v-if="user.todo.tasks.length == 0">
+        <div class="ui grid"><div class="row"></div></div>
+        <h3 class="ui blue">You have no tasks, add your tasks now!</h3>
+      </div>
     </div> <!-- div v-if="user" -->
 
-  <button class="ui green button" id="btnLogin">Sign in</button>
+  <!-- <button class="ui green button" id="btnLogin">Sign in</button> -->
 
     <!--  MODAL -->
             <div class="ui small modal four grid" id="modalLogin">
@@ -112,6 +209,9 @@
                     <div class="ui button">Cancel</div>
                 </div>
             </div>
+
+
+
 
 
     </div> <!-- end of container -->

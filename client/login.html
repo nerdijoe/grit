@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+      <link rel='stylesheet' href='/style/main.css' />
 
       <script src="https://unpkg.com/vue"></script>
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -14,25 +15,64 @@
     <div id="app">
       <div class="ui container">
 
-      <h2>Sign in</h2>
+        <div class="ui secondary menu">
+          <a>
+            <div class="ui small image">
+              <a href="index.html"><img src="/images/logo_v2.png"></a>
+            </div>
+          </a>
+          <a href="todo.html" v-if="is_login" class="item">
+            My Todo List
+          </a>
 
-      <form class="ui huge form" v-on:submit="onSubmitForm" >
-        <div class="field">
-          <label>Username</label>
-          <input type="text" name="username" v-model="user_form.username" placeholder="Username">
+          <div class="right menu">
+            <div v-if="!is_login" class="item">
+              <a href="login.html" class="ui green basic button">Sign in</a>
+            </div>
+            <div v-if="!is_login" class="item">
+              <a href="http://localhost:3000/auth/facebook" class="ui facebook button"><i class="facebook icon"></i>Sign in</a>
+            </div>
+
+            <div v-if="is_login" class="item">
+              <button class="ui red button" v-on:click="signOut">Sign out</button>
+            </div>
+          </div>
+        </div> <!-- end of menu-->
+
+
+        <div class="ui grid">
+            <div class="row"></div>
         </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" name="last-name" v-model="user_form.password" placeholder="Password">
-        </div>
 
-        <button class="ui button" type="submit">Submit</button>
-      </form>
+      <div class="ui grid">
+        <div class="eight wide column">
+
+          <div class="ui card">
+            <div class="content">
+              <div class="header">Sign in</div>
+            </div>
+            <div class="content">
+              <form class="ui huge form" v-on:submit="onSubmitForm" >
+                <div class="field">
+                  <input type="text" name="username" v-model="user_form.username" placeholder="Username">
+                </div>
+                <div class="field">
+                  <input type="password" name="last-name" v-model="user_form.password" placeholder="Password">
+                </div>
+
+                <button class="ui button green right floated" type="submit">Sign in</button>
+              </form>
+            </div>
+
+          </div> <!-- ui card -->
+
+        </div> <!-- column -->
+      </div> <!-- end of ui grid-->
 
 
-      </div> <!-- end of container -->
+    </div> <!-- end of ui container -->
 
     </div> <!-- end of app-->
   </body>
-  <script src="./js/vue.js"></script>
+  <script src="./js/vue-login.js"></script>
 </html>
