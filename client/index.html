@@ -30,7 +30,7 @@
 
         <div class="right menu">
           <div v-if="!is_login" class="item">
-            <button class="ui orange basic button" id="btnSignUp">Sign up</button>
+            <button class="ui orange button" id="btnSignUp">Sign up</button>
           </div>
           <div v-if="!is_login" class="item">
             <button class="ui green basic button" id="btnLogin">Sign in</button>
@@ -121,20 +121,29 @@
 
       <div class="ui grid small modal" id="modalSignUpSuccessful">
         <div class="sixteen wide column">
-          <p>
-            You have successfully signed up. Please Sign In.
-          </p>
+          <div class="ui big green message">You have successfully signed up. Please sign in.</div>
         </div> <!-- column -->
       </div> <!-- end of ui grid small modal-->
 
       <div class="ui grid small modal" id="modalTokenExpired">
         <div class="sixteen wide column">
-          <p>
-            Your token is expired. Please sign in again.
-          </p>
+            <div class="ui big red message">Your token is expired. Please sign in again.</div>
         </div> <!-- column -->
       </div> <!-- end of ui grid small modal-->
 
+      <div class="ui grid small modal" id="modalSignInError">
+        <div class="sixteen wide column">
+          <div class="ui big red message">Sign In error. Please enter the correct inputs.</div>
+        </div> <!-- column -->
+      </div> <!-- end of ui grid small modal-->
+
+      <div class="ui grid small modal" id="modalSignUpError">
+        <div class="sixteen wide column">
+
+            <div class="ui big red message">Sign Up error. Please check again your inputs.</div>
+
+        </div> <!-- column -->
+      </div> <!-- end of ui grid small modal-->
 
 
       <div class="footer">
@@ -150,12 +159,12 @@
 
         <div class="badge-container vertical-container">
           <ul class="flex-container-badge">
-            <li class="flex-item-badge">
-              <a href="#"><img class="app-store-badge" src="/images/app_store_badges/app-store-badge.svg"/></a>
+            <li class="ui small image">
+              <a href="#"><img src="/images/app_store_badges/app-store-badge.svg"/></a>
             </li>
 
-            <li class="flex-item-badge">
-              <a href="#"><img class="google-play-badge" src="/images/app_store_badges/google-play-badge.png"/></a>
+            <li class="ui small image">
+              <a href="#"><img src="/images/app_store_badges/google-play-badge.png"/></a>
             </li>
           </ul>
 
