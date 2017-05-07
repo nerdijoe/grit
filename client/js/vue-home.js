@@ -14,8 +14,7 @@ var app = new Vue({
   data: {
     message: "Sup",
     user: {name: "", username: "", email: "", password: ""},
-    is_login: false,
-    jwt_token: ""
+    is_login: false
   },
   methods: {
 
@@ -30,8 +29,16 @@ var app = new Vue({
 
     console.log("urlParams.get('token')",urlParams.get('token'))
 
-    this.jwt_token = urlParams.get('token');
-    console.log("this.jwt_token",this.jwt_token)
+    // this.jwt_token = urlParams.get('token');
+    // console.log("this.jwt_token",this.jwt_token)
+
+    localStorage.setItem('token', urlParams.get('token'));
+    console.log('localStorage.token', localStorage.token);
+
+    window.location.href = "todo.html"
+
+    // successfully retrieve the token from query params
+    // now make the query to
 
   }
 }) // end of var app
