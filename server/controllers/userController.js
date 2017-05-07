@@ -30,6 +30,7 @@ exports.signin = (req, res, next) => {
   // create token
   var token = jwt.sign(
     {
+      _id: user._id,
       name: user.name,
       username: user.username,
       email: user.email,
