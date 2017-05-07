@@ -61,3 +61,32 @@ exports.delete = (req, res, next) => {
     }
   })
 }
+
+exports.toggle_complete = (req, res, next) => {
+  var task_id = req.params.id;
+
+  Task.findById(task_id, (err, task) => {
+    if(err) res.send(err);
+
+    //format date to ISO
+    var d = new Date();
+    var n = d.toISOString();
+    task.updated_at = n;
+
+    task.name = req.body.name || task.name;
+    if(task.is_completed) {
+      task.is_completed = false;
+      task.completed_at = n;
+    }
+    else {
+      task.is_completed = true;
+      task.completed_at = null;
+    }
+
+    task.save( (err, task) => {
+      if(err) res.send(err);
+      res.send(task);
+    })
+
+  })
+}

@@ -19,14 +19,54 @@
     <h2>Todo</h2>
     {{message}}
 
-    <h4>{{todo.todo.name}} Todo List</h4>
-    <ul>
-      <li v-for="task in todo.todo.tasks">
-        {{task.name}}
-      </li>
-    </ul>
+    <div class="container" v-if="user">
+
+      <h4>{{user.name}} Todo List</h4>
+
+      <form class="ui massive form" v-on:submit="addTask">
+        <div class="two fields">
+          <div class="field">
+            <input placeholder="Enter Task" type="text" v-model="task_form.name">
+          </div>
+          <div class="field">
+            <button class="massive ui submit button" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="ui cards">
+        <div class="card" v-for="task in user.todo.tasks">
+          <div class="content">
+            <div class="header">{{task.name}}</div>
+            <div class="description">
+              {{task.updated_at}}
+            </div>
+          </div>
+          <div class="ui bottom attached button">
+            <i class="checkmark icon"></i>
+            Mark complete
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              {{task.created_at}}
+            </span>
+            <span v-if="!task.is_completed">
+              <a v-on:click="markComplete(task._id)"><i class="checkmark icon"></i></a>
+            </span>
+            <span v-if="task.is_completed">
+              <a v-on:click="markComplete(task._id)"><i class=" green checkmark icon"></i></a>
+            </span>
+
+            <span>
+              <a v-on:click="deleteTask(task._id)"><i class="remove circle outline icon"></i></a>
+
+            </span>
 
 
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     </div> <!-- end of container -->

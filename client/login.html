@@ -19,11 +19,11 @@
       <form class="ui huge form" v-on:submit="onSubmitForm" >
         <div class="field">
           <label>Username</label>
-          <input type="text" name="username" v-model="user.username" placeholder="Username">
+          <input type="text" name="username" v-model="user_form.username" placeholder="Username">
         </div>
         <div class="field">
           <label>Password</label>
-          <input type="password" name="last-name" v-model="user.password" placeholder="Password">
+          <input type="password" name="last-name" v-model="user_form.password" placeholder="Password">
         </div>
 
         <button class="ui button" type="submit">Submit</button>

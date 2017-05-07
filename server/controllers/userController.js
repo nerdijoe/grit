@@ -77,14 +77,14 @@ exports.get_user_todo = (req, res, next) => {
   // decode token
   jwt.verify(req.headers.token, process.env.TOKEN_SECRET, (err, decoded) => {
     if (decoded) {
-        console.log(`decoded data is: `, decoded);
-        console.log(typeof decoded);
-        console.log(decoded._id);
-        console.log(typeof decoded._id)
+        // console.log(`decoded data is: `, decoded);
+        // console.log(typeof decoded);
+        // console.log(decoded._id);
+        // console.log(typeof decoded._id)
 
         // var user_id = mongoose.Types.ObjectId(decoded._id);
         var user_id = decoded._id;
-        console.log(typeof user_id)
+        // console.log(typeof user_id)
 
         // User
         //   .findById(user_id)
