@@ -9,6 +9,7 @@ var jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 var User = require('./models/user');
+var Todo = require('./models/todo');
 
 
 var passwordHash = require('password-hash');
@@ -70,25 +71,31 @@ passport.use(new FacebookStrategy({
         // to get email birthday, profile picture
 https://graph.facebook.com/10108296765292663?fields=email,birthday,picture&access_token=token
         */
+        var newTodo = Todo({ name: 'My List' })
+        newTodo.save( (err, todo) => {
 
-        var newUser = User({
-          name: profile.displayName,
-          username: 'ijo',
-          email: 'ijo@haha.com',
-          password: passwordHash.generate('haha'),
-          facebook_id: profile.id,
-          facebook_access_token: accessToken
-        })
+          var newUser = User({
+            name: profile.displayName,
+            username: 'ijo',
+            email: 'ijo@haha.com',
+            password: passwordHash.generate('haha'),
+            todo: todo._id,
+            facebook_id: profile.id,
+            facebook_access_token: accessToken
+          })
 
-        newUser.save( (err, user) => {
-          if(err) res.send(err);
+          newUser.save( (err, user) => {
+            if(err) res.send(err);
 
-          // token is created when user is signin normally
-          // res.redirect('http://localhost:8080')
-          console.log("*** created new user ***")
-          console.log(user);
-          return cb(null, user);
-        })
+            // token is created when user is signin normally
+            // res.redirect('http://localhost:8080')
+            console.log("*** created new user ***")
+            console.log(user);
+            return cb(null, user);
+          })
+
+        }) // end of newTodo.save
+
       }
       else {
         console.log("*** existing user ***")
