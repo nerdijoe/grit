@@ -67,7 +67,7 @@
 
     <!-- <div class="ui one column stackable center aligned page grid">
        <div class="column twelve wide"> -->
-         <form class="ui massive form" v-on:submit="addTask">
+         <!-- <form class="ui massive form" v-on:submit="addTask">
            <div class="two fields">
              <div class="field">
                <input placeholder="Enter Task" type="text" name="name" v-model="task_form.name">
@@ -77,11 +77,23 @@
              </div>
            </div>
            <div class="ui error message"></div>
-         </form>
+         </form> -->
        <!-- </div>
     </div> -->
 
 
+    <form class="ui massive form" v-on:submit="addTask">
+      <div class="ui action input">
+        <input placeholder="Enter Task" type="text" name="name" v-model="task_form.name">
+        <button class="massive ui orange submit button" type="submit">Add</button>
+      </div>
+      <div class="ui error message"></div>
+    </form>
+
+
+
+
+    <div class="ui grid"><div class="row"></div><div class="row"></div></div>
 
     <div class="container" v-if="user">
 
@@ -89,7 +101,7 @@
 
       <div v-if="user.todo.tasks.length > 0">
 
-      <h3 class="ui yellow header"><i class="huge checkmark box icon"></i>Incomplete Tasks</h3>
+      <h3 class="ui yellow header"><i class="huge square outline icon"></i>Incomplete Tasks</h3>
 
         <div v-if="num_incomplete == 0">
           <!-- <div class="ui grid"><div class="row"></div></div> -->
@@ -136,7 +148,7 @@
   </div> <!-- v-if="user.todo.tasks.length -->
 
 
-      <div class="ui grid"><div class="row"></div></div>
+      <div class="ui grid"><div class="row"></div><div class="row"></div></div>
 
       <!-- Completed Tasks ********************************************************************** -->
 
