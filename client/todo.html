@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 
     <script src="https://unpkg.com/vue"></script>
@@ -14,6 +13,31 @@
   </head>
   <body>
   <div id="app">
+    <div class="ui secondary  menu">
+      <a class="item">
+        Home
+      </a>
+      <a class="item">
+        Messages
+      </a>
+      <a class="item">
+        Friends
+      </a>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+        <a class="ui item">
+          Logout
+        </a>
+      </div>
+    </div>
+
+
+
     <div class="ui container">
     <button class="ui red button" v-on:click="signOut">Sign out</button>
 
@@ -61,11 +85,42 @@
       </div>
     </div> <!-- div v-if="user" -->
 
+  <button class="ui green button" id="btnLogin">Sign in</button>
+
+    <!--  MODAL -->
+            <div class="ui small modal four grid" id="modalLogin">
+                <i class="close icon"></i>
+                <div class="ui center aligned header">
+                    <h3>Sign in</h3>
+                </div>
+
+                <div class="ui content grid container">
+
+                    <div class="content">
+                        <div class="ui form fluid">
+                            <div class="field">
+                                <label>Username</label>
+                                <input class="ui left action fluid icon input"  placeholder="Username" type="text">
+                            </div>
+
+                            <button id="btnSubmitLogin" class="ui button green">Sign in</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <div class="ui button">Cancel</div>
+                </div>
+            </div>
+
 
     </div> <!-- end of container -->
 
   </div> <!-- end of app-->
+  <script type="text/javascript" src="dist/jquery.min.js"></script>
+  <script type="text/javascript" src="dist/semantic.min.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/vue.js"></script>
+
 </body>
-<script src="./js/main.js"></script>
-<script src="./js/vue.js"></script>
 </html>
