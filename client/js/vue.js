@@ -3,6 +3,7 @@ var app = new Vue({
   data: {
     message: "Sup",
     user: {name: "", username: "", email: "", password: ""},
+    todo: {},
     is_login: false
   },
   methods: {
@@ -20,7 +21,7 @@ var app = new Vue({
         localStorage.setItem('token', response.data);
         console.log(localStorage.token);
 
-        window.location.href = "index.html"
+        window.location.href = "todo.html"
 
       })
       .catch(function (error) {
@@ -28,9 +29,37 @@ var app = new Vue({
       });
 
 
-    }// end of onSubmitForm
+    }, // end of onSubmitForm
+    signOut: () => {
+      localStorage.removeItem('token');
+
+      this.is_login = false;
+      window.location.href = 'index.html'
+    } // end of signOut
   },
   created: () => {
 
-  }
+    axios.get(
+      'http://localhost:3000/users/todo',
+      {
+        headers: { token: localStorage.token }
+      }
+    )
+    .then (response => {
+      console.log(response);
+      // app.items.push(response.data[0])
+      // need to call app.items instead of this.items
+
+      app.todo = response.data;
+      console.log(app.todo);
+
+      if(localStorage.token != null)
+        app.is_login = true;
+
+    })
+    .catch (err => {
+      console.log(err);
+    })
+
+  } // end of created
 }) // end of var app

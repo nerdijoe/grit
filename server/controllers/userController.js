@@ -73,7 +73,7 @@ exports.get_users = (req, res, next) => {
     })
 }
 
-exports.get_user = (req, res, next) => {
+exports.get_user_todo = (req, res, next) => {
   // decode token
   jwt.verify(req.headers.token, process.env.TOKEN_SECRET, (err, decoded) => {
     if (decoded) {

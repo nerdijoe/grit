@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>GRIT</title>
+  </head>
+  <body>
+  <div id="app">
+    <div class="ui container">
+    <button class="ui red button" v-on:click="signOut">Sign out</button>
+
+    <h2>Todo</h2>
+    {{message}}
+
+    <h4>{{todo.todo.name}} Todo List</h4>
+    <ul>
+      <li v-for="task in todo.todo.tasks">
+        {{task.name}}
+      </li>
+    </ul>
+
+
+
+
+    </div> <!-- end of container -->
+
+  </div> <!-- end of app-->
+</body>
+<script src="./js/vue.js"></script>
+</html>
