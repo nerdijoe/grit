@@ -1,3 +1,5 @@
+
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -34,6 +36,9 @@ var app = new Vue({
     addTask: (e) => {
       e.preventDefault();
       console.log("app.task_form.name", app.task_form.name)
+
+      // need to validate if
+
 
       axios.post('http://localhost:3000/todos/addtask', {
         name: app.task_form.name
@@ -90,11 +95,14 @@ var app = new Vue({
         console.log(response);
 
         // reload page
-        window.location.href = "todo.html"
+        // window.location.href = "todo.html"
 
-        // add to tasks
+        // delete task
         // app.user.todo.tasks.push(response.data);
 
+        var elementPos = app.user.todo.tasks.map(function(x) {return x._id; }).indexOf(task_id);
+        console.log('elementPos', elementPos);
+        app.user.todo.tasks.splice(elementPos, 1);
       })
       .catch(function (error) {
         console.log(error);
