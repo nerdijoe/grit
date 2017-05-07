@@ -94,7 +94,7 @@ https://graph.facebook.com/10108296765292663?fields=email,birthday,picture&acces
         console.log("*** existing user ***")
         console.log(user);
 
-        //need to update facebook token
+        //need to update facebook token?
 
         return cb(null, user);
       }
