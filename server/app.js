@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+var jwt = require('jsonwebtoken');
+
 require('dotenv').config();
 
 var User = require('./models/user');
@@ -91,6 +93,9 @@ https://graph.facebook.com/10108296765292663?fields=email,birthday,picture&acces
       else {
         console.log("*** existing user ***")
         console.log(user);
+
+        //need to update facebook token
+
         return cb(null, user);
       }
     }) // end of User.findOne
@@ -144,7 +149,23 @@ app.get('/auth/facebook/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     console.log("here")
-    res.redirect('/');
+    console.log(req.user);
+
+    var token = jwt.sign(
+      {
+        _id: req.user._id,
+        name: req.user.name,
+        username: req.user.username,
+        email: req.user.email,
+        picture: req.user.picture,
+        facebook_id: req.user.facebook_id,
+        facebook_access_token: req.user.facebook_access_token
+      },
+      process.env.TOKEN_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    res.redirect(`http://localhost:5000/home.html?token=${token}`);
   });
 
 // app.get('/auth/facebook/callback', (req, res) =>{
