@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
-
-    <link rel="stylesheet" href="http://unpkg.com/css-font-family@1.0.6/css/css-font-family.min.css" />
     <link rel='stylesheet' href='/style/main.css' />
 
 
@@ -16,17 +14,165 @@
   </head>
   <body>
   <div id="app">
+
+
     <div class="ui container">
 
-      <h1>GRIT</h1>
-      <h3>{{message}}</h3>
-      <p>
-        <a href="login.html" class="ui green basic button">Login</a>
-        <a href="http://localhost:3000/auth/facebook" class="ui facebook button"><i class="facebook icon"></i>Login</a>
-      </p>
-    </div> <!-- end of container -->
+      <div class="ui secondary menu">
+        <a>
+          <div class="ui small image">
+            <a href="index.html"><img src="/images/logo_v2.png"></a>
+          </div>
+        </a>
+        <a href="todo.html" v-if="is_login" class="item">
+          My Todo List
+        </a>
+
+        <div class="right menu">
+          <div v-if="!is_login" class="item">
+            <button class="ui orange basic button" id="btnSignUp">Sign up</button>
+          </div>
+          <div v-if="!is_login" class="item">
+            <button class="ui green basic button" id="btnLogin">Sign in</button>
+          </div>
+          <div v-if="!is_login" class="item">
+            <a href="http://localhost:3000/auth/facebook" class="ui facebook button"><i class="facebook icon"></i>Sign in</a>
+          </div>
+
+          <div v-if="is_login" class="item">
+            <button class="ui red button" v-on:click="signOut">Sign out</button>
+          </div>
+        </div>
+      </div> <!-- end of menu-->
+
+
+      <div class="container-blue">
+
+      <div class="banner">
+        <p class="banner-text-1">
+          Keep track of your tasks, more efficiently.
+        </p>
+
+        <div class="button-big-center">
+          <button class="massive ui orange button" id="btnSignUpBig">Get Started</button>
+        </div>
+
+
+        <p class="banner-text-2">
+          Sign up for a free account and start doing your tasks today.
+        </p>
+
+      </div> <!-- end of banner -->
+
+    </div> <!-- end of container-blue -->
+
+
+
+
+
+
+
+
+
+
+<!-- ************************* MODAL ************************* -->
+      <div class="ui grid small modal" id="modalLogin">
+        <div class="sixteen wide column">
+
+              <h3> Sign in</h3>
+              <form class="ui huge form" v-on:submit="onSubmitForm" >
+                <div class="field">
+                  <input type="text" name="username" v-model="user_form.username" placeholder="Username">
+                </div>
+                <div class="field">
+                  <input type="password" name="last-name" v-model="user_form.password" placeholder="Password">
+                </div>
+
+                <button id="btnSubmitLogin" class="ui button green right floated" type="submit">Sign in</button>
+              </form>
+
+        </div> <!-- column -->
+      </div> <!-- end of ui grid small modal-->
+
+      <div class="ui grid small modal" id="modalSignUp">
+        <div class="sixteen wide column">
+
+              <h3> Sign up</h3>
+              <form class="ui huge form" v-on:submit="onSubmitSignUpForm" >
+                <div class="field">
+                  <input type="text" name="name" v-model="user_form.name" placeholder="Full Name">
+                </div>
+                <div class="field">
+                  <input type="text" name="username" v-model="user_form.username" placeholder="Username">
+                </div>
+                <div class="field">
+                  <input type="text" name="email" v-model="user_form.email" placeholder="Email">
+                </div>
+
+                <div class="field">
+                  <input type="password" name="last-name" v-model="user_form.password" placeholder="Password">
+                </div>
+
+                <button id="btnSubmitSignUp" class="ui button green right floated" type="submit">Sign in</button>
+              </form>
+
+        </div> <!-- column -->
+      </div> <!-- end of ui grid small modal-->
+
+      <div class="ui grid small modal" id="modalSignUpSuccessful">
+        <div class="sixteen wide column">
+          <p>
+            You have successfully signed up. Please Sign In.
+          </p>
+        </div> <!-- column -->
+      </div> <!-- end of ui grid small modal-->
+
+      <div class="ui grid small modal" id="modalTokenExpired">
+        <div class="sixteen wide column">
+          <p>
+            Your token is expired. Please sign in again.
+          </p>
+        </div> <!-- column -->
+      </div> <!-- end of ui grid small modal-->
+
+
+
+      <div class="footer">
+        <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Platform</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Jobs</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Privacy</a></li>
+        </ul>
+
+        <div class="badge-container vertical-container">
+          <ul class="flex-container-badge">
+            <li class="flex-item-badge">
+              <a href="#"><img class="app-store-badge" src="/images/app_store_badges/app-store-badge.svg"/></a>
+            </li>
+
+            <li class="flex-item-badge">
+              <a href="#"><img class="google-play-badge" src="/images/app_store_badges/google-play-badge.png"/></a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div> <!-- end of footer -->
+
+
+
+    </div> <!-- end of ui container -->
 
   </div> <!-- end of app-->
-  </body>
+
+  <script type="text/javascript" src="dist/jquery.min.js"></script>
+  <script type="text/javascript" src="dist/semantic.min.js"></script>
+  <script src="./js/main.js"></script>
   <script src="./js/vue.js"></script>
+
+  </body>
 </html>

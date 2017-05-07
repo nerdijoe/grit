@@ -4,13 +4,10 @@ var app = new Vue({
   el: '#app',
   data: {
     message: "Sup",
-    message_signup: "",
     user_form: {name: "", username: "", email: "", password: ""},
     task_form: {name: "", is_completed: ""},
     user: {},
-    is_login: false,
-    num_incomplete: 0,
-    num_complete: 0
+    is_login: false
   },
   methods: {
     onSubmitForm: (e) => {
@@ -36,31 +33,6 @@ var app = new Vue({
 
 
     }, // end of onSubmitForm
-    onSubmitSignUpForm: (e) => {
-      e.preventDefault();
-      // alert(app.user.username)
-
-      axios.post('http://localhost:3000/users/signup', {
-        name: app.user_form.name,
-        username: app.user_form.username,
-        email: app.user_form.email,
-        password: app.user_form.password
-      })
-      .then(function (response) {
-        if (response.data.hasOwnProperty('err')) {
-            console.log(response.data);
-            console.log(err);
-        } else {
-            $('#modalSignUpSuccessful').modal('show');
-            console.log(response);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
-    }, // end of onSubmitSignUpForm
     addTask: (e) => {
       e.preventDefault();
       console.log("app.task_form.name", app.task_form.name)
@@ -105,17 +77,8 @@ var app = new Vue({
         // app.user.todo.tasks.push(response.data);
         app.user.todo.tasks.map( t => {
           if(t._id == task_id){
-            if(t.is_completed) {
-              t.is_completed = false;
-              app.num_complete--;
-              app.num_incomplete++;
-            }
-            else {
-              t.is_completed = true;
-              app.num_complete++;
-              app.num_incomplete--;
-
-            }
+            if(t.is_completed) t.is_completed = false;
+            else t.is_completed = true;
           }
         })
 
@@ -179,23 +142,8 @@ var app = new Vue({
         // window.location.href = 'login.html'
       }
 
-      if(response.data.message == "jwt expired") {
+      if(response.data.message == "jwt expired")
         app.message = "Token is expired, please sign in again."
-        localStorage.removeItem('token');
-        this.is_login = false;
-        $('#modalTokenExpired').modal('show');
-        window.location.href = 'index.html'
-      }
-
-      // calculate incomplete and completed tasks
-      if(app.user.todo.tasks.length > 0) {
-        app.user.todo.tasks.map( t => {
-          if(t.is_completed)
-            app.num_complete++;
-          else
-            app.num_incomplete++;
-        })
-      }
 
     })
     .catch (err => {
