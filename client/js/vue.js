@@ -177,6 +177,8 @@ var app = new Vue({
   filters: {
     localTime: function (date) {
       //  return moment(date + ' Z', 'YYYY-MM-DD HH:mm:ss Z', true).format('D MMM YYYY HH:mm');
+      // return moment().format("MMM Do");
+      return moment(date).format('YYYY-MM-DD HH:m:s');
 
       // var dateFormat = require('dateformat');
       // var now = new Date(date);
@@ -188,6 +190,8 @@ var app = new Vue({
       // var formatdate = Date.parse(date);
       // console.log(formatdate.toString('dd-MMM-yyyy'));
       // return formatdate.toString('dd-MMM-yyyy');
+
+      // return date;
     }
   },
   created: () => {

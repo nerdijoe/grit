@@ -165,7 +165,7 @@
                 <div class="content">
                   <div class="header">{{task.name}}</div>
                   <div class="description">
-                    {{task.updated_at}}
+                    {{task.updated_at | localTime}}
                   </div>
                 </div>
 
@@ -244,6 +244,7 @@
   </div> <!-- end of app-->
   <script type="text/javascript" src="dist/jquery.min.js"></script>
   <script type="text/javascript" src="dist/semantic.min.js"></script>
+  <script type="text/javascript" src="./js/moment.min.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/vue.js"></script>
 
