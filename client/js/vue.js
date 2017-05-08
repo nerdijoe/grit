@@ -7,7 +7,7 @@ var app = new Vue({
     message_signup: "",
     user_form: {name: "", username: "", email: "", password: ""},
     task_form: {name: "", is_completed: ""},
-    user: {},
+    user: { todo: { tasks : [] }},
     is_login: false,
     num_incomplete: 0,
     num_complete: 0
@@ -173,6 +173,22 @@ var app = new Vue({
       this.is_login = false;
       window.location.href = 'index.html'
     } // end of signOut
+  },
+  filters: {
+    localTime: function (date) {
+      //  return moment(date + ' Z', 'YYYY-MM-DD HH:mm:ss Z', true).format('D MMM YYYY HH:mm');
+
+      // var dateFormat = require('dateformat');
+      // var now = new Date(date);
+      // return dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+
+      // var today = new Date(date);
+      // return strftime('%m', today)
+
+      // var formatdate = Date.parse(date);
+      // console.log(formatdate.toString('dd-MMM-yyyy'));
+      // return formatdate.toString('dd-MMM-yyyy');
+    }
   },
   created: () => {
 
