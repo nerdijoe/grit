@@ -1,3 +1,5 @@
+![GRIT logo](http://i.imgur.com/iEuTGBX.png)
+
 # GRIT
 
 Fancy to do list app
