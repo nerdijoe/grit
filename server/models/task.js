@@ -6,7 +6,8 @@ var taskSchema = new Schema({
   is_completed: { type: Boolean, required: false, default: false },
   completed_at: { type:Date, required: false, default: null },
   created_at: { type: Date, required: false, default: Date.now},
-  updated_at: { type: Date, required: false, default: Date.now}
+  updated_at: { type: Date, required: false, default: Date.now},
+  due_date: { type: Date, required: false, default: null }
 
   // tags: [String]
 });
