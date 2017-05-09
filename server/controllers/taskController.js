@@ -2,7 +2,8 @@ var Task  = require('../models/task');
 
 exports.create = (req, res, next) => {
   var newTask = Task({
-    name: req.body.name
+    name: req.body.name,
+    due_date: req.body.due_date
     // is_completed: false,
     // completed_at: Date.now,
     // updated_at: Date.now
