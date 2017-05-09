@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var Todo = require('../models/todo');
 var Task = require('../models/task');
+var cronJobNotif = require('../helpers/cronJobNotif');
 
 exports.create = (req, res, next) => {
   var newTodo = Todo({
@@ -82,7 +83,7 @@ exports.add_task_using_token = (req, res, next) => {
     if(err) res.send(err);
     if(user) {
 
-      var newTask = Task({ name: req.body.name });
+      var newTask = Task({ name: req.body.name, due_date: req.body.due_date });
       newTask.save( (err, task) => {
         if(err) res.send(err)
 
@@ -101,6 +102,14 @@ exports.add_task_using_token = (req, res, next) => {
           // don't forget to save to DB after adding task
           todo.save( (err, todo) => {
             if (err) res.send(err);
+
+
+
+            // cron job here
+            var date = new Date(task.due_date);
+            if( date.getMinutes() + date.getHours() > 0)
+              cronJobNotif.createNotif(user, task);
+
 
             // res.send(`Task '${task.name}' with id='${task.id}' has been added to Todo ${todo.name}`);
             res.send(task)

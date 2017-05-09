@@ -67,28 +67,41 @@
 
     <!-- <div class="ui one column stackable center aligned page grid">
        <div class="column twelve wide"> -->
-         <!-- <form class="ui massive form" v-on:submit="addTask">
+         <form class="ui massive form" v-on:submit="addTask">
            <div class="two fields">
              <div class="field">
                <input placeholder="Enter Task" type="text" name="name" v-model="task_form.name">
              </div>
              <div class="field">
-               <button class="massive ui submit button" type="submit">Add</button>
+               <button class="massive ui orange submit button" type="submit">Add</button>
              </div>
            </div>
+           <div class="six wide field">
+             <label>Due Time</label>
+             <div class="two fields">
+
+               <div class="field">
+                 <input type="text" v-model="task_form.due_date_hour" maxlength="2" placeholder="hour">
+               </div>
+               <div class="field">
+                 <input type="text" v-model="task_form.due_date_minute" maxlength="2" placeholder="min">
+               </div>
+             </div>
+           </div>
+
            <div class="ui error message"></div>
-         </form> -->
+         </form>
        <!-- </div>
     </div> -->
 
 
-    <form class="ui massive form" v-on:submit="addTask">
+    <!-- <form class="ui massive form" v-on:submit="addTask">
       <div class="ui action input">
         <input placeholder="Enter Task" type="text" name="name" v-model="task_form.name">
         <button class="massive ui orange submit button" type="submit">Add</button>
       </div>
       <div class="ui error message"></div>
-    </form>
+    </form> -->
 
 
 

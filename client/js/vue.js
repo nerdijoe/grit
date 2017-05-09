@@ -6,7 +6,7 @@ var app = new Vue({
     message: "Sup",
     message_signup: "",
     user_form: {name: "", username: "", email: "", password: ""},
-    task_form: {name: "", is_completed: ""},
+    task_form: {name: "", is_completed: "", due_date_minute: "", due_date_hour: ""},
     user: { todo: { tasks : [] }},
     is_login: false,
     num_incomplete: 0,
@@ -72,9 +72,21 @@ var app = new Vue({
 
       // need to validate if
 
+      // format due date
+      var hour = app.task_form.due_date_hour;
+      var minute = app.task_form.due_date_minute;
+      if(hour == "" || minute == ""){
+        hour = '00';
+        minute = '00';
+      }
+
+      // for now, use today's date
+      var due_date = `2017-05-09 ${hour}:${minute}:00`;
+      console.log('due_date', due_date);
 
       axios.post('http://localhost:3000/todos/addtask', {
-        name: app.task_form.name
+        name: app.task_form.name,
+        due_date: due_date
       }, {
         headers: { token: localStorage.token }
       })
